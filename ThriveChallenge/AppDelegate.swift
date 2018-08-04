@@ -15,7 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // Our initial view will be the reddit post view inside a nav controller
+        let redditPostView = RedditPostViewController()
+        let rootView = UINavigationController(rootViewController: redditPostView)
+        
+        // Create the window and set out initial view
+        window = UIWindow.init(frame: UIScreen.main.bounds)
+        window?.backgroundColor = UIColor.white
+        window?.rootViewController = rootView
+        window?.makeKeyAndVisible()
+        
         return true
     }
 

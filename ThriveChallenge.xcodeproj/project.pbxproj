@@ -8,12 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		03FE77E62113C18900776EED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE77E52113C18900776EED /* AppDelegate.swift */; };
-		03FE77E82113C18900776EED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE77E72113C18900776EED /* ViewController.swift */; };
-		03FE77EB2113C18900776EED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03FE77E92113C18900776EED /* Main.storyboard */; };
 		03FE77ED2113C18B00776EED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03FE77EC2113C18B00776EED /* Assets.xcassets */; };
 		03FE77F02113C18B00776EED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03FE77EE2113C18B00776EED /* LaunchScreen.storyboard */; };
 		03FE77FB2113C18B00776EED /* ThriveChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE77FA2113C18B00776EED /* ThriveChallengeTests.swift */; };
 		03FE78062113C18B00776EED /* ThriveChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE78052113C18B00776EED /* ThriveChallengeUITests.swift */; };
+		03FE78192113C61800776EED /* RedditAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE78182113C61800776EED /* RedditAPI.swift */; };
+		03FE781B2113CAB900776EED /* RedditPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE781A2113CAB900776EED /* RedditPost.swift */; };
+		03FE781D2113CAC400776EED /* PostComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE781C2113CAC400776EED /* PostComment.swift */; };
+		03FE781F2114037400776EED /* RedditPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE781E2114037400776EED /* RedditPostViewController.swift */; };
+		03FE78222114C22400776EED /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE78212114C22400776EED /* PostCell.swift */; };
+		03FE78252114C3CF00776EED /* UITableView+ThriveChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE78242114C3CF00776EED /* UITableView+ThriveChallenge.swift */; };
+		03FE78272114C77200776EED /* UIView+ThriveChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE78262114C77200776EED /* UIView+ThriveChallenge.swift */; };
+		03FE78292114F9A500776EED /* UIImage+ThriveChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE78282114F9A500776EED /* UIImage+ThriveChallenge.swift */; };
+		03FE782B2115019200776EED /* UIImageView+ThriveChallenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE782A2115019200776EED /* UIImageView+ThriveChallenge.swift */; };
+		8BE45005A7F46E64C9BA377A /* Pods_ThriveChallenge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5119838B47F112A2913C81FF /* Pods_ThriveChallenge.framework */; };
+		EB684D364D09941507E3561A /* Pods_ThriveChallengeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF44E448EB29492BA8875D1E /* Pods_ThriveChallengeUITests.framework */; };
+		EC0D436F5A4C06966358731C /* Pods_ThriveChallengeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4519DD2A55CFE90375F7D45 /* Pods_ThriveChallengeTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,8 +46,6 @@
 /* Begin PBXFileReference section */
 		03FE77E22113C18900776EED /* ThriveChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThriveChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03FE77E52113C18900776EED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		03FE77E72113C18900776EED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		03FE77EA2113C18900776EED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		03FE77EC2113C18B00776EED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03FE77EF2113C18B00776EED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		03FE77F12113C18B00776EED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +55,24 @@
 		03FE78012113C18B00776EED /* ThriveChallengeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThriveChallengeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03FE78052113C18B00776EED /* ThriveChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThriveChallengeUITests.swift; sourceTree = "<group>"; };
 		03FE78072113C18B00776EED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		03FE78182113C61800776EED /* RedditAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditAPI.swift; sourceTree = "<group>"; };
+		03FE781A2113CAB900776EED /* RedditPost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPost.swift; sourceTree = "<group>"; };
+		03FE781C2113CAC400776EED /* PostComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostComment.swift; sourceTree = "<group>"; };
+		03FE781E2114037400776EED /* RedditPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditPostViewController.swift; sourceTree = "<group>"; };
+		03FE78212114C22400776EED /* PostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
+		03FE78242114C3CF00776EED /* UITableView+ThriveChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+ThriveChallenge.swift"; sourceTree = "<group>"; };
+		03FE78262114C77200776EED /* UIView+ThriveChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+ThriveChallenge.swift"; sourceTree = "<group>"; };
+		03FE78282114F9A500776EED /* UIImage+ThriveChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ThriveChallenge.swift"; sourceTree = "<group>"; };
+		03FE782A2115019200776EED /* UIImageView+ThriveChallenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+ThriveChallenge.swift"; sourceTree = "<group>"; };
+		138D1EEE9AC0754B214573CA /* Pods-ThriveChallengeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriveChallengeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ThriveChallengeTests/Pods-ThriveChallengeTests.release.xcconfig"; sourceTree = "<group>"; };
+		5119838B47F112A2913C81FF /* Pods_ThriveChallenge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ThriveChallenge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6917317BB4DA28B81EB65507 /* Pods-ThriveChallenge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriveChallenge.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ThriveChallenge/Pods-ThriveChallenge.debug.xcconfig"; sourceTree = "<group>"; };
+		7CBD98DCD69195500A8097B0 /* Pods-ThriveChallengeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriveChallengeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ThriveChallengeUITests/Pods-ThriveChallengeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A4519DD2A55CFE90375F7D45 /* Pods_ThriveChallengeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ThriveChallengeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF44E448EB29492BA8875D1E /* Pods_ThriveChallengeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ThriveChallengeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D676ED495F576959379DC406 /* Pods-ThriveChallenge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriveChallenge.release.xcconfig"; path = "Pods/Target Support Files/Pods-ThriveChallenge/Pods-ThriveChallenge.release.xcconfig"; sourceTree = "<group>"; };
+		FB6D8B985D4CF2BCB40B762A /* Pods-ThriveChallengeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriveChallengeTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ThriveChallengeTests/Pods-ThriveChallengeTests.debug.xcconfig"; sourceTree = "<group>"; };
+		FFFC1BF2FCD3E8F41EFDB51F /* Pods-ThriveChallengeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ThriveChallengeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ThriveChallengeUITests/Pods-ThriveChallengeUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BE45005A7F46E64C9BA377A /* Pods_ThriveChallenge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC0D436F5A4C06966358731C /* Pods_ThriveChallengeTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB684D364D09941507E3561A /* Pods_ThriveChallengeUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +110,8 @@
 				03FE77F92113C18B00776EED /* ThriveChallengeTests */,
 				03FE78042113C18B00776EED /* ThriveChallengeUITests */,
 				03FE77E32113C18900776EED /* Products */,
+				396AC9372683FF0364D843EA /* Pods */,
+				5181C00BB01A37A7807959C9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -97,11 +128,13 @@
 		03FE77E42113C18900776EED /* ThriveChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				03FE78142113C57400776EED /* Model */,
+				03FE78152113C58300776EED /* View */,
+				03FE78162113C58700776EED /* Controller */,
+				03FE78172113C5BD00776EED /* Reddit API */,
+				03FE78232114C39A00776EED /* Extensions */,
 				03FE77E52113C18900776EED /* AppDelegate.swift */,
-				03FE77E72113C18900776EED /* ViewController.swift */,
-				03FE77E92113C18900776EED /* Main.storyboard */,
 				03FE77EC2113C18B00776EED /* Assets.xcassets */,
-				03FE77EE2113C18B00776EED /* LaunchScreen.storyboard */,
 				03FE77F12113C18B00776EED /* Info.plist */,
 			);
 			path = ThriveChallenge;
@@ -125,6 +158,82 @@
 			path = ThriveChallengeUITests;
 			sourceTree = "<group>";
 		};
+		03FE78142113C57400776EED /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		03FE78152113C58300776EED /* View */ = {
+			isa = PBXGroup;
+			children = (
+				03FE78212114C22400776EED /* PostCell.swift */,
+				03FE77EE2113C18B00776EED /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		03FE78162113C58700776EED /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				03FE781E2114037400776EED /* RedditPostViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		03FE78172113C5BD00776EED /* Reddit API */ = {
+			isa = PBXGroup;
+			children = (
+				03FE78182113C61800776EED /* RedditAPI.swift */,
+				03FE78202114984E00776EED /* Model */,
+			);
+			path = "Reddit API";
+			sourceTree = "<group>";
+		};
+		03FE78202114984E00776EED /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				03FE781A2113CAB900776EED /* RedditPost.swift */,
+				03FE781C2113CAC400776EED /* PostComment.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		03FE78232114C39A00776EED /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				03FE78242114C3CF00776EED /* UITableView+ThriveChallenge.swift */,
+				03FE78262114C77200776EED /* UIView+ThriveChallenge.swift */,
+				03FE78282114F9A500776EED /* UIImage+ThriveChallenge.swift */,
+				03FE782A2115019200776EED /* UIImageView+ThriveChallenge.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		396AC9372683FF0364D843EA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6917317BB4DA28B81EB65507 /* Pods-ThriveChallenge.debug.xcconfig */,
+				D676ED495F576959379DC406 /* Pods-ThriveChallenge.release.xcconfig */,
+				FB6D8B985D4CF2BCB40B762A /* Pods-ThriveChallengeTests.debug.xcconfig */,
+				138D1EEE9AC0754B214573CA /* Pods-ThriveChallengeTests.release.xcconfig */,
+				7CBD98DCD69195500A8097B0 /* Pods-ThriveChallengeUITests.debug.xcconfig */,
+				FFFC1BF2FCD3E8F41EFDB51F /* Pods-ThriveChallengeUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5181C00BB01A37A7807959C9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5119838B47F112A2913C81FF /* Pods_ThriveChallenge.framework */,
+				A4519DD2A55CFE90375F7D45 /* Pods_ThriveChallengeTests.framework */,
+				AF44E448EB29492BA8875D1E /* Pods_ThriveChallengeUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +241,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03FE780A2113C18B00776EED /* Build configuration list for PBXNativeTarget "ThriveChallenge" */;
 			buildPhases = (
+				BB9787BC228035023D5C8895 /* [CP] Check Pods Manifest.lock */,
 				03FE77DE2113C18900776EED /* Sources */,
 				03FE77DF2113C18900776EED /* Frameworks */,
 				03FE77E02113C18900776EED /* Resources */,
+				8CD7925029782EB454B5C6AF /* [CP] Embed Pods Frameworks */,
+				3F4F0FB1E59053F947416735 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,9 +261,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03FE780D2113C18B00776EED /* Build configuration list for PBXNativeTarget "ThriveChallengeTests" */;
 			buildPhases = (
+				54ECA0160D589972B828585A /* [CP] Check Pods Manifest.lock */,
 				03FE77F22113C18B00776EED /* Sources */,
 				03FE77F32113C18B00776EED /* Frameworks */,
 				03FE77F42113C18B00776EED /* Resources */,
+				D4E264F831AE821020C04656 /* [CP] Embed Pods Frameworks */,
+				EA49760CEC60CDE61C82743C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +282,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 03FE78102113C18B00776EED /* Build configuration list for PBXNativeTarget "ThriveChallengeUITests" */;
 			buildPhases = (
+				E97F3F81047C84CF077D8B2B /* [CP] Check Pods Manifest.lock */,
 				03FE77FD2113C18B00776EED /* Sources */,
 				03FE77FE2113C18B00776EED /* Frameworks */,
 				03FE77FF2113C18B00776EED /* Resources */,
+				6D09ACC9216736D5123EF407 /* [CP] Embed Pods Frameworks */,
+				337F02B45CDED8FCB92B840D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -231,7 +349,6 @@
 			files = (
 				03FE77F02113C18B00776EED /* LaunchScreen.storyboard in Resources */,
 				03FE77ED2113C18B00776EED /* Assets.xcassets in Resources */,
-				03FE77EB2113C18900776EED /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -251,13 +368,179 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		337F02B45CDED8FCB92B840D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ThriveChallengeUITests/Pods-ThriveChallengeUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3F4F0FB1E59053F947416735 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ThriveChallenge/Pods-ThriveChallenge-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		54ECA0160D589972B828585A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ThriveChallengeTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6D09ACC9216736D5123EF407 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ThriveChallengeUITests/Pods-ThriveChallengeUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8CD7925029782EB454B5C6AF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ThriveChallenge/Pods-ThriveChallenge-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSONModel/SwiftyJSONModel.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSONModel.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ThriveChallenge/Pods-ThriveChallenge-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB9787BC228035023D5C8895 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ThriveChallenge-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D4E264F831AE821020C04656 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ThriveChallengeTests/Pods-ThriveChallengeTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E97F3F81047C84CF077D8B2B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ThriveChallengeUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EA49760CEC60CDE61C82743C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ThriveChallengeTests/Pods-ThriveChallengeTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		03FE77DE2113C18900776EED /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03FE77E82113C18900776EED /* ViewController.swift in Sources */,
+				03FE78292114F9A500776EED /* UIImage+ThriveChallenge.swift in Sources */,
+				03FE78272114C77200776EED /* UIView+ThriveChallenge.swift in Sources */,
+				03FE78192113C61800776EED /* RedditAPI.swift in Sources */,
+				03FE78252114C3CF00776EED /* UITableView+ThriveChallenge.swift in Sources */,
+				03FE781D2113CAC400776EED /* PostComment.swift in Sources */,
 				03FE77E62113C18900776EED /* AppDelegate.swift in Sources */,
+				03FE782B2115019200776EED /* UIImageView+ThriveChallenge.swift in Sources */,
+				03FE781F2114037400776EED /* RedditPostViewController.swift in Sources */,
+				03FE781B2113CAB900776EED /* RedditPost.swift in Sources */,
+				03FE78222114C22400776EED /* PostCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,14 +576,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		03FE77E92113C18900776EED /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				03FE77EA2113C18900776EED /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		03FE77EE2113C18B00776EED /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -428,15 +703,13 @@
 		};
 		03FE780B2113C18B00776EED /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6917317BB4DA28B81EB65507 /* Pods-ThriveChallenge.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2YGDKQVDC6;
 				INFOPLIST_FILE = ThriveChallenge/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GHB.ThriveChallenge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -446,15 +719,13 @@
 		};
 		03FE780C2113C18B00776EED /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D676ED495F576959379DC406 /* Pods-ThriveChallenge.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2YGDKQVDC6;
 				INFOPLIST_FILE = ThriveChallenge/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GHB.ThriveChallenge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -464,17 +735,14 @@
 		};
 		03FE780E2113C18B00776EED /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB6D8B985D4CF2BCB40B762A /* Pods-ThriveChallengeTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2YGDKQVDC6;
 				INFOPLIST_FILE = ThriveChallengeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GHB.ThriveChallengeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -485,17 +753,14 @@
 		};
 		03FE780F2113C18B00776EED /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 138D1EEE9AC0754B214573CA /* Pods-ThriveChallengeTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2YGDKQVDC6;
 				INFOPLIST_FILE = ThriveChallengeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GHB.ThriveChallengeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -506,16 +771,13 @@
 		};
 		03FE78112113C18B00776EED /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7CBD98DCD69195500A8097B0 /* Pods-ThriveChallengeUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2YGDKQVDC6;
 				INFOPLIST_FILE = ThriveChallengeUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GHB.ThriveChallengeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -526,16 +788,13 @@
 		};
 		03FE78122113C18B00776EED /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FFFC1BF2FCD3E8F41EFDB51F /* Pods-ThriveChallengeUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2YGDKQVDC6;
 				INFOPLIST_FILE = ThriveChallengeUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GHB.ThriveChallengeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

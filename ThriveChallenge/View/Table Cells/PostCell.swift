@@ -16,7 +16,6 @@ class PostCell: UITableViewCell {
     let verticalPadding: CGFloat = 10
     let labelHorizontalPadding: CGFloat = 10
     
-    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.initialViewSetup()
@@ -139,6 +138,7 @@ class PostCell: UITableViewCell {
     public func setThumbnailWith(urlString: String?, withExpectedAspectRatio: CGFloat, inTableViewOfWidth: CGFloat, placeholder: UIImage)
     {
         guard let urlString = urlString, let url = URL(string: urlString) else {
+            print("[PostCell]: No thumbnail image.")
             thumbnailImageView.image = placeholder
             setThumbnailAspectRatio(aspectRatio: placeholder.aspectRatio(), forTableViewOfWidth: inTableViewOfWidth)
             return

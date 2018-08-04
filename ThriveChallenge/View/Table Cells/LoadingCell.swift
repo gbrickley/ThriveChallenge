@@ -21,6 +21,8 @@ class LoadingCell: UITableViewCell {
         
     func initialViewSetup()
     {
+        // Hide the cell separator for the loading view
+        self.separatorInset = UIEdgeInsetsMake(0, 0, 0, UIScreen.main.bounds.width)
         self.isUserInteractionEnabled = false
         self.selectionStyle = UITableViewCellSelectionStyle.none
         self.backgroundColor = UIColor.clear

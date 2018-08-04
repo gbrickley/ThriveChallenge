@@ -82,8 +82,8 @@ class RedditPostViewController: UIViewController {
         tv.userDynamicCellHeightsWith(estimatedHeight: 80)
         tv.backgroundColor = UIColor.clear
         tv.separatorStyle = UITableViewCellSeparatorStyle.none
-        tv.register(PostCell.self, forCellReuseIdentifier: self.postCellReuseIdentifier)
-        tv.register(LoadingCell.self, forCellReuseIdentifier: self.loadingCellReuseIdentifier)
+        tv.register(PostCell.self, forCellReuseIdentifier: postCellReuseIdentifier)
+        tv.register(LoadingCell.self, forCellReuseIdentifier: loadingCellReuseIdentifier)
         return tv
     }()
     
@@ -102,7 +102,6 @@ class RedditPostViewController: UIViewController {
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        self.title = "Reddit Posts"
         initialViewSetup()
         loadPostsTable(animated: false)
     }
@@ -123,6 +122,8 @@ class RedditPostViewController: UIViewController {
     func presentCommentsFor(post: RedditPost)
     {
         print("Present commments for post: \(post)")
+        let commentView = CommentViewController(withPost: post)
+        self.navigationController?.pushViewController(commentView, animated: true)
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl)
@@ -175,11 +176,21 @@ private extension RedditPostViewController {
     
     func initialViewSetup()
     {
+        setupNavigationBar()
         view.backgroundColor = UIColor.groupTableViewBackground
         view.addSubview(collectionTypeSegmentedControl)
         view.addSubview(loadingContainer)
         tableView.addSubview(refreshControl)
         view.addSubview(tableView)
+    }
+    
+    func setupNavigationBar()
+    {
+        self.title = "Reddit Posts"
+        // Removing the title from the back btn makes things look cleaner
+        let backButton = UIBarButtonItem()
+        backButton.title = ""
+        self.navigationController?.navigationBar.topItem?.backBarButtonItem = backButton
     }
     
     func updateTableViewConstraints()
@@ -200,11 +211,9 @@ private extension RedditPostViewController {
     
     func updateCollectionTypeSegmentedControlConstraints()
     {
-        NSLayoutConstraint(item: collectionTypeSegmentedControl, attribute: .centerX, relatedBy: .equal, toItem: view, attribute: .centerX, multiplier: 1.0, constant: 0.0).isActive = true
-        
-        NSLayoutConstraint(item: collectionTypeSegmentedControl, attribute: .width, relatedBy: .equal, toItem: view, attribute: .width, multiplier: 0.9, constant: 0.0).isActive = true
-        
-        collectionTypeSegmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16.0).isActive = true
+        collectionTypeSegmentedControl.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10).isActive = true
+        collectionTypeSegmentedControl.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10).isActive = true
+        collectionTypeSegmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
     }
 }
 
@@ -245,10 +254,11 @@ private extension RedditPostViewController {
         set(isLoading: true, forCollectionType: collectionType)
         
         // Remove any existing error before we start
-        setError(message: nil, forCollectionType: collectionType)
+        setError(message: nil, for: collectionType)
         
         // If we don't have any posts loaded yet, show an activity indicator
         if (loadedPosts.count == 0) {
+            print("We don't have any loaded posts yet, show the activity indicator.")
             showPostActivityIndicatorFor(collectionType: collectionType)
         }
         
@@ -271,7 +281,7 @@ private extension RedditPostViewController {
             case .error(let code, let friendlyMessage, let cause):
                 // Save a reference to this error message in case we need to show to the user
                 print("Error [\(code)]: \(friendlyMessage) - Cause: \(cause)")
-                self.setError(message: friendlyMessage, forCollectionType: collectionType)
+                self.setError(message: friendlyMessage, for: collectionType)
             }
             
             // Notify that we're done loading
@@ -327,9 +337,9 @@ private extension RedditPostViewController {
         return posts[currentViewingIndex][RedditPostViewController.errorKey] as? String
     }
     
-    func setError(message: String?, forCollectionType: RedditCollectionType)
+    func setError(message: String?, for collectionType: RedditCollectionType)
     {
-        if let index = indexFor(collectionType: forCollectionType) {
+        if let index = indexFor(collectionType: collectionType) {
             posts[index][RedditPostViewController.errorKey] = message
         }
     }
@@ -371,6 +381,7 @@ private extension RedditPostViewController {
     
     func hidePostActivityIndicator()
     {
+        print("Hide progress HUD")
         tableView.isHidden = false
         progressHUD?.hide(animated: true)
     }
@@ -388,13 +399,6 @@ extension RedditPostViewController: UITableViewDataSource {
         } else {
             return posts.count + 1 // Add in an extra cell for the activity indicator cell
         }
-    }
-    
-    func loadingCellFor(tableView: UITableView, atIndexPath: IndexPath) -> UITableViewCell
-    {
-        let cell = tableView.dequeueReusableCell(withIdentifier: loadingCellReuseIdentifier, for: atIndexPath) as! LoadingCell
-        cell.activityIndicator.startAnimating()
-        return cell
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -419,8 +423,21 @@ extension RedditPostViewController: UITableViewDataSource {
         // Cell the thumbnail image (asyncronously)
         let aspectRation = post.expectedThumbnailAspectRatio()
         let placeholder = post.thumbnailPlaceholderImage()
+        
+        //post.thumbnailUrl = "https://i.redditmedia.com/OYz8bp8XFJyD--trIfvxTnWxGQIgQpAhGoOoq38DrrI.jpg?s=57f3aa21ccc6a0c073681595b3e10d30"
+        //https://i.redditmedia.com/OYz8bp8XFJyD--trIfvxTnWxGQIgQpAhGoOoq38DrrI.jpg?s=57f3aa21ccc6a0c073681595b3e10d30
+        post.printData()
+        //print("[Cell]: Thumbnail URL: \(String(describing: post.thumbnailUrl))")
+        
         cell.setThumbnailWith(urlString: post.thumbnailUrl, withExpectedAspectRatio: aspectRation, inTableViewOfWidth: UIScreen.main.bounds.width, placeholder: placeholder)
         
+        return cell
+    }
+    
+    func loadingCellFor(tableView: UITableView, atIndexPath: IndexPath) -> UITableViewCell
+    {
+        let cell = tableView.dequeueReusableCell(withIdentifier: loadingCellReuseIdentifier, for: atIndexPath) as! LoadingCell
+        cell.activityIndicator.startAnimating()
         return cell
     }
 }
@@ -436,16 +453,35 @@ extension RedditPostViewController: UITableViewDelegate {
         self.presentCommentsFor(post: post)
     }
     
+    
+    // TODO: THE FACT THAT WILL DISPLAY CELL IS BEING CALLED SO OFTEN IS MESSING THINGS UP,
+    // NEED TO FIGURE OUT A SMOOTHER WAY TO HANDLE
+    // THE FINAL CELL IS CALLED 3 OR 4 TIMES IN A ROW
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         // Once we get towards the bottom, we'll start loading more posts
-        let indexToStartLoadAt = tableView.numberOfRows(inSection: 0) - beginLoadingNextBatchWithPostsRemaining
-        if (indexPath.row >= indexToStartLoadAt && currentCollectionTypeIsLoading() == false) {
+        let lastIndex = tableView.numberOfRows(inSection: 0) - 1
+        //let indexToStartLoadAt = tableView.numberOfRows(inSection: 0) - beginLoadingNextBatchWithPostsRemaining
+        if ( indexPath.row == lastIndex && currentCollectionTypeIsLoading() == false) {
+            //print("Load next page of data...")
+            //let after = lastLoadedPostNameInCurrentCollectionType()
+            //loadPosts(after: after)
+        }
+    }
+    
+    //let threshold = 100.0 // threshold from bottom of tableView
+    /*
+    func scrollViewDidScroll(_ scrollView: UIScrollView)
+    {
+        let contentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+        
+        if !currentCollectionTypeIsLoading() && (maximumOffset - contentOffset <= 100) {
             print("Load next page of data...")
             let after = lastLoadedPostNameInCurrentCollectionType()
             loadPosts(after: after)
         }
-    }
+    }*/
 }
 
 // MARK: - Empty Data Set Source
@@ -464,13 +500,12 @@ extension RedditPostViewController: EmptyDataSetSource {
     
     func description(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString?
     {
-        var descrip = "No posts loaded yet"
-        if let error = errorForCurrentCollectionType() {
-            descrip = error
+        guard let error = errorForCurrentCollectionType() else {
+            return nil
         }
-        
+
         let atts = [NSAttributedStringKey.foregroundColor: UIColor.gray, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)]
-        return NSAttributedString.init(string: descrip, attributes: atts)
+        return NSAttributedString.init(string: error, attributes: atts)
     }
     
     func verticalOffset(forEmptyDataSet scrollView: UIScrollView) -> CGFloat
@@ -480,17 +515,21 @@ extension RedditPostViewController: EmptyDataSetSource {
     
     func buttonTitle(forEmptyDataSet scrollView: UIScrollView, for state: UIControlState) -> NSAttributedString?
     {
-        var title = "Load Posts"
-        if errorForCurrentCollectionType() != nil {
-            title = "Retry"
+        guard errorForCurrentCollectionType() != nil else {
+            return nil
         }
         
+        let title = "Retry"
         let atts = [NSAttributedStringKey.foregroundColor: UIColor.gray, NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: 18)]
         return NSAttributedString.init(string: title, attributes: atts)
     }
     
     func buttonBackgroundImage(forEmptyDataSet scrollView: UIScrollView, for state: UIControlState) -> UIImage?
     {
+        guard errorForCurrentCollectionType() != nil else {
+            return nil
+        }
+        
         let capInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         let rectInsets = UIEdgeInsets(top: -19, left: -61, bottom: -19, right: -61)
         let image = UIImage.init(named: "empty-set-btn-bg")

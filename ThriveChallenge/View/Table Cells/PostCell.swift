@@ -148,7 +148,21 @@ class PostCell: UITableViewCell {
         setThumbnailAspectRatio(aspectRatio: withExpectedAspectRatio, forTableViewOfWidth: inTableViewOfWidth)
         
         // Load the image asyncronously
-        thumbnailImageView.setImageFrom(url: url, placholder: placeholder)
+        showPostActivityIndicator()
+        thumbnailImageView.setImageFrom(url: url, placholder: placeholder, completion: { success in
+            print("Thumbnail was loaded.  Success: \(success)")
+            self.hidePostActivityIndicator()
+        })
+    }
+    
+    func showPostActivityIndicator()
+    {
+        print("Show post activity indicator")
+    }
+    
+    func hidePostActivityIndicator()
+    {
+        print("Hide post activity indicator")
     }
 
     override func awakeFromNib() {

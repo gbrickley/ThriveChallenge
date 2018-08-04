@@ -370,6 +370,15 @@ private extension RedditPostViewController {
         return nil
     }
     
+    
+    // MARK: Has Next Page
+    
+    func hasNextPage() -> Bool
+    {
+        // TODO: Making a best guess here now, this would typically be grabbed from the API
+        return postsForCurrentCollectionType().count >= postBatchSize
+    }
+    
     // MARK: Activity Indicator
     
     func showPostActivityIndicatorFor(collectionType: RedditCollectionType)
@@ -394,10 +403,10 @@ extension RedditPostViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         let posts = postsForCurrentCollectionType()
-        if posts.count == 0 {
-            return 0
+        if (hasNextPage()) {
+            return posts.count + 1 // Add in an extra cell for the 'loading' cell
         } else {
-            return posts.count + 1 // Add in an extra cell for the activity indicator cell
+            return posts.count
         }
     }
     

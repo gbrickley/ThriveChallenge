@@ -12,29 +12,10 @@ import AlamofireImage
 
 extension UIImageView {
 
-    public func setImageFrom(url: URL, placholder: UIImage)
+    public func setImageFrom(url: URL, placholder: UIImage, completion: @escaping (_ succedd: Bool) -> Void )
     {
-        self.af_setImage(withURL: url, placeholderImage: placholder)
-        
-        /*
-        self.image = placholder
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard
-                let httpURLResponse = response as? HTTPURLResponse, httpURLResponse.statusCode == 200,
-                let mimeType = response?.mimeType, mimeType.hasPrefix("image"),
-                let data = data, error == nil,
-                let image = UIImage(data: data)
-                else {
-                    completion(false)
-                    return
-            }
-            
-            DispatchQueue.main.async() {
-                self.image = image
-                completion(true)
-            }
-            
-            }.resume()
-         */
+        self.af_setImage(withURL: url, placeholderImage: placholder, filter: nil, progress: nil, progressQueue: DispatchQueue.main, imageTransition: UIImageView.ImageTransition.noTransition, runImageTransitionIfCached: false, completion: { response in
+            completion(response.result.isSuccess)
+        })
     }
 }

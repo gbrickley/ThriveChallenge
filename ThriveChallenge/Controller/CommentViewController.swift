@@ -162,6 +162,12 @@ private extension CommentViewController {
         }
     }
     
+    func hasNextPage() -> Bool
+    {
+        // TODO: Making a best guess here now, this would typically be grabbed from the API
+        return comments.count >= commentBatchSize
+    }
+    
     
     // MARK: Activity Indicator
     
@@ -185,10 +191,10 @@ extension CommentViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if comments.count == 0 {
-            return 0
-        } else {
+        if (hasNextPage()) {
             return comments.count + 1 // Add in an extra cell for the 'loading' cell
+        } else {
+            return comments.count
         }
     }
     

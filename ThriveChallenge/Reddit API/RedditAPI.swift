@@ -21,7 +21,7 @@ enum RedditCollectionType: String {
     case hot    = "hot"
     case new    = "new"
     case random = "random"
-    case top    = "top"
+    case top    = "topzzz"
     
     /// A user friendly name describing the collection type
     func displayName() -> String{

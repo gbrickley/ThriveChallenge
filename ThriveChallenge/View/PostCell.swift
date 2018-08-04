@@ -103,7 +103,7 @@ class PostCell: UITableViewCell {
     {
         authorLabel.leadingAnchor.constraint(equalTo:containerView.leadingAnchor, constant:labelHorizontalPadding).isActive = true
         authorLabel.trailingAnchor.constraint(equalTo:containerView.trailingAnchor, constant:-labelHorizontalPadding).isActive = true
-        authorLabel.topAnchor.constraint(equalTo:titleLabel.bottomAnchor, constant: 10).isActive = true
+        authorLabel.topAnchor.constraint(equalTo:titleLabel.bottomAnchor, constant: 6).isActive = true
     }
     
     func updateThumbnailImageConstraints()
@@ -153,15 +153,9 @@ class PostCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
-    
-
-
 }

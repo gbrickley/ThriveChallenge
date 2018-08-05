@@ -10,9 +10,15 @@ import UIKit
 
 class LoadingCell: UITableViewCell {
     
-    var height: CGFloat = 40
+    /// The total height of the cell.  This is adjustable using set(height:)
+    private var height: CGFloat = 40
+    
+    /// Padding for cell elements
     var topPaddingConstraint : NSLayoutConstraint?
     var bottomPaddingConstraint : NSLayoutConstraint?
+    
+    
+    // MARK: - Init
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -22,36 +28,16 @@ class LoadingCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-        
-    func initialViewSetup()
-    {
-        // Hide the cell separator for the loading view
-        self.separatorInset = UIEdgeInsetsMake(0, 0, 0, UIScreen.main.bounds.width)
-        self.isUserInteractionEnabled = false
-        self.selectionStyle = UITableViewCellSelectionStyle.none
-        self.backgroundColor = UIColor.clear
-        self.contentView.addSubview(activityIndicator)
-        updateViewConstraints()
-    }
     
-    let activityIndicator: UIActivityIndicatorView = {
-        let ind = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
-        ind.translatesAutoresizingMaskIntoConstraints = false
-        return ind
-    }()
     
-    func updateViewConstraints()
-    {
-        updateActivityIndicatorConstraints()
-    }
+    // MARK: - Public Methods
     
-    func updateActivityIndicatorConstraints()
-    {
-        activityIndicator.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor).isActive = true
-        set(height: self.height)
-    }
-    
-    func set(height: CGFloat)
+    /**
+     Sets the cells height.
+     Note: The activity indicator will always be centered.
+     - Parameter height: The new total height.
+     */
+    public func set(height: CGFloat)
     {
         self.height = height
         let indHeight = activityIndicator.bounds.size.height
@@ -72,12 +58,37 @@ class LoadingCell: UITableViewCell {
         topPaddingConstraint?.isActive = true
         bottomPaddingConstraint?.isActive = true
     }
+    
+    let activityIndicator: UIActivityIndicatorView = {
+        let ind = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        ind.translatesAutoresizingMaskIntoConstraints = false
+        return ind
+    }()
+}
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
+
+// MARK: - View Setup
+private extension LoadingCell {
+    
+    func initialViewSetup()
+    {
+        // Hide the cell separator for the loading view
+        self.separatorInset = UIEdgeInsetsMake(0, 0, 0, UIScreen.main.bounds.width)
+        self.isUserInteractionEnabled = false
+        self.selectionStyle = UITableViewCellSelectionStyle.none
+        self.backgroundColor = UIColor.clear
+        self.contentView.addSubview(activityIndicator)
+        updateViewConstraints()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
+    
+    func updateViewConstraints()
+    {
+        updateActivityIndicatorConstraints()
+    }
+    
+    func updateActivityIndicatorConstraints()
+    {
+        activityIndicator.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor).isActive = true
+        set(height: self.height)
     }
 }

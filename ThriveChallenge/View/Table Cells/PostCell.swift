@@ -10,11 +10,16 @@ import UIKit
 
 class PostCell: UITableViewCell {
 
+    /// We hold a reference to the image height constraint in case we need to change it later
     var thumbnailImageHeightConstraint : NSLayoutConstraint?
     
+    /// Padding for cell elements
     let horizontalPadding: CGFloat = 10
     let verticalPadding: CGFloat = 10
     let labelHorizontalPadding: CGFloat = 10
+    
+    
+    // MARK: - Init
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -25,19 +30,38 @@ class PostCell: UITableViewCell {
         super.init(coder: aDecoder)
     }
     
-    // MARK: - View Setup
     
-    func initialViewSetup()
+    // MARK: - Public Methods
+    
+    /**
+     Sets the thumbnail image using a remote url.
+     
+     - Parameter urlString: The url, as a string, where the image is located.
+     - Parameter aspectRatio: The expected aspect ratio of the image at the given url.
+     - Parameter tableViewWidth: The width of the table view this cell is contained within.
+     - Parameter placeholder: A placeholder image to display when the real image downloads.
+     */
+    public func setThumbnailWith(urlString: String?, withExpectedAspectRatio aspectRatio: CGFloat, inTableViewOfWidth tableViewWidth: CGFloat, placeholder: UIImage)
     {
-        self.selectionStyle = UITableViewCellSelectionStyle.none
-        self.backgroundColor = UIColor.clear
-        containerView.addSubview(titleLabel)
-        containerView.addSubview(authorLabel)
-        containerView.addSubview(thumbnailImageView)
-        self.contentView.addSubview(containerView)
-        updateViewConstraints()
+        guard let urlString = urlString, let url = URL(string: urlString) else {
+            thumbnailImageView.image = placeholder
+            setThumbnailAspectRatio(aspectRatio: placeholder.aspectRatio(), forTableViewOfWidth: tableViewWidth)
+            return
+        }
+        
+        // Setup the expected aspect ratio and start loading the image
+        setThumbnailAspectRatio(aspectRatio: aspectRatio, forTableViewOfWidth: tableViewWidth)
+        
+        // Load the image asyncronously
+        showPostActivityIndicator()
+        thumbnailImageView.setImageFrom(url: url, placholder: placeholder, completion: { success in
+            self.hidePostActivityIndicator()
+        })
     }
+    
 
+    // MARK: - UI Elements
+    
     let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -74,6 +98,22 @@ class PostCell: UITableViewCell {
         img.image = UIImage.init(named: "thumbnail-placeholder")
         return img
     }()
+}
+
+
+// MARK: - View Setup
+private extension PostCell {
+    
+    func initialViewSetup()
+    {
+        self.selectionStyle = UITableViewCellSelectionStyle.none
+        self.backgroundColor = UIColor.clear
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(authorLabel)
+        containerView.addSubview(thumbnailImageView)
+        self.contentView.addSubview(containerView)
+        updateViewConstraints()
+    }
     
     func updateViewConstraints()
     {
@@ -112,18 +152,17 @@ class PostCell: UITableViewCell {
         thumbnailImageView.topAnchor.constraint(equalTo:authorLabel.bottomAnchor, constant: 10).isActive = true
         thumbnailImageView.bottomAnchor.constraint(equalTo:containerView.bottomAnchor).isActive = true
         
-        // We'll initially set the image view to 50 tall
         // We'll adjust based on the post we bind to the cell
         setThumbnailHeight(height: 100)
     }
-        
-    private func setThumbnailAspectRatio(aspectRatio: CGFloat, forTableViewOfWidth: CGFloat)
+    
+    func setThumbnailAspectRatio(aspectRatio: CGFloat, forTableViewOfWidth: CGFloat)
     {
         let height = (forTableViewOfWidth - (horizontalPadding*2)) / CGFloat(aspectRatio)
         setThumbnailHeight(height: height)
     }
     
-    private func setThumbnailHeight(height: CGFloat)
+    func setThumbnailHeight(height: CGFloat)
     {
         if (thumbnailImageHeightConstraint != nil) {
             thumbnailImageHeightConstraint?.constant = height
@@ -133,43 +172,22 @@ class PostCell: UITableViewCell {
         
         thumbnailImageHeightConstraint?.isActive = true
     }
+}
+
+
+// MARK: - Private Methods
+private extension PostCell {
     
-    
-    public func setThumbnailWith(urlString: String?, withExpectedAspectRatio: CGFloat, inTableViewOfWidth: CGFloat, placeholder: UIImage)
-    {
-        guard let urlString = urlString, let url = URL(string: urlString) else {
-            print("[PostCell]: No thumbnail image.")
-            thumbnailImageView.image = placeholder
-            setThumbnailAspectRatio(aspectRatio: placeholder.aspectRatio(), forTableViewOfWidth: inTableViewOfWidth)
-            return
-        }
-        
-        // Setup the expected aspect ratio and start loading the image
-        setThumbnailAspectRatio(aspectRatio: withExpectedAspectRatio, forTableViewOfWidth: inTableViewOfWidth)
-        
-        // Load the image asyncronously
-        showPostActivityIndicator()
-        thumbnailImageView.setImageFrom(url: url, placholder: placeholder, completion: { success in
-            print("Thumbnail was loaded.  Success: \(success)")
-            self.hidePostActivityIndicator()
-        })
-    }
+    // MARK: Activity Indicator
     
     func showPostActivityIndicator()
     {
-        print("Show post activity indicator")
+        // TODO: ADD IF WE DECIDE WE WANT THIS
     }
     
     func hidePostActivityIndicator()
     {
-        print("Hide post activity indicator")
+        // TODO: ADD IF WE DECIDE WE WANT THIS
     }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
+    
 }

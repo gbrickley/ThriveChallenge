@@ -192,7 +192,7 @@ private extension CommentViewController {
     
     func hasNextPage() -> Bool
     {
-        // TODO: Making a best guess here now, this would typically be grabbed from the API
+        // TODO: Making a best guess for now, this would typically be grabbed from the API
         return comments.count >= commentBatchSize
     }
     

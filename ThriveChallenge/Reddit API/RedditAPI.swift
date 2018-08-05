@@ -81,7 +81,6 @@ class RedditAPI: NSObject {
                     do {
                         var data = postAsJSON["data"]
                         data["postThumbnail"] = self.optimumThumbnailFromPostDate(data: data)
-                        print(data["postThumbnail"])
                         let post = try RedditPost(json: data)
                         allPosts.append(post)
                     } catch let error {

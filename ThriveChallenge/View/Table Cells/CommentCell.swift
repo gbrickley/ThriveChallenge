@@ -10,8 +10,12 @@ import UIKit
 
 class CommentCell: UITableViewCell {
     
+    /// Padding for cell elements
     let horizontalPadding: CGFloat = 15
     let verticalPadding: CGFloat = 10
+    
+    
+    // MARK: - Init
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -21,6 +25,9 @@ class CommentCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    
+    // Labels
     
     let containerView: UIView = {
         let view = UIView()
@@ -58,9 +65,11 @@ class CommentCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    
-    // MARK: - View Setup
+}
+
+
+// MARK: - View Setup
+private extension CommentCell {
     
     func initialViewSetup()
     {
@@ -112,13 +121,4 @@ class CommentCell: UITableViewCell {
         commentLabel.topAnchor.constraint(equalTo:authorLabel.bottomAnchor, constant: topPadding).isActive = true
         commentLabel.bottomAnchor.constraint(equalTo:containerView.bottomAnchor).isActive = true
     }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-
 }

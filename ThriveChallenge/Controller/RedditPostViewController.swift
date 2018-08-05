@@ -38,7 +38,7 @@ class RedditPostViewController: UIViewController {
       [collectionTypeKey: RedditCollectionType.top, postsKey: [RedditPost](), errorKey:nil, isLoadingKey:false]
     ]
     
-    // TODO: The redit API for random posts doesn not seem to work the same as the others
+    // TODO: The redit API for random posts does not seem to work the same as the others
     // Leaving this out for now
     //[collectionTypeKey: RedditCollectionType.random, postsKey: [RedditPost]()]
 
@@ -218,7 +218,6 @@ private extension RedditPostViewController {
         
         // If we don't have any posts loaded yet, show an activity indicator
         if (loadedPosts.count == 0) {
-            print("We don't have any loaded posts yet, show the activity indicator.")
             showPostActivityIndicatorFor(collectionType: collectionType)
         }
         
@@ -371,7 +370,7 @@ private extension RedditPostViewController {
     
     func currentCollectionTypeHasNextPage() -> Bool
     {
-        // TODO: Making a best guess here now, this would typically be grabbed from the API
+        // TODO: Making a best guess here for now, this would typically be grabbed from the API
         return postsForCurrentCollectionType().count >= postBatchSize
     }
     

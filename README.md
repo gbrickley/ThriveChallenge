@@ -6,7 +6,8 @@ The app should run as is.  If you have any questions or issues, please contact m
 
 ## Notes
 - The Reddit [API Docs](https://www.reddit.com/dev/api/) are not longer available, so I pieced together the API requests as best as I could. 
-- Both the posts and comments are set to paginate.  Without the API docs, I could only implement a very basic setup for the comments that shows the top most level.
+- Both the posts and comments are set to paginate.  The posts also have a 'pull-to-refresh' feature.
+- Without the API docs, I could only implement a very basic setup for the comments that shows the top most level.
 - The table cell for each post is calculated dynamically based on the title size and the size of the thumbnail image.
 
 ## TODO's / Future Addons

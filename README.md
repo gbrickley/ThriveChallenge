@@ -12,3 +12,4 @@ The app should run as is.  If you have any questions or issues, please contact m
 ## TODO's / Future Addons
 - Update comments view to show levels of comments (i.e. replies, replies to replies)
 - Add support of .gif images.  A lot of the thumbnails are gif type. 
+- Add in unit tests.

@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03B091D02116836D00F07463 /* RedditAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03B091CF2116836D00F07463 /* RedditAPITests.swift */; };
 		03FE77E62113C18900776EED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE77E52113C18900776EED /* AppDelegate.swift */; };
 		03FE77ED2113C18B00776EED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03FE77EC2113C18B00776EED /* Assets.xcassets */; };
 		03FE77F02113C18B00776EED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 03FE77EE2113C18B00776EED /* LaunchScreen.storyboard */; };
-		03FE77FB2113C18B00776EED /* ThriveChallengeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE77FA2113C18B00776EED /* ThriveChallengeTests.swift */; };
 		03FE78062113C18B00776EED /* ThriveChallengeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE78052113C18B00776EED /* ThriveChallengeUITests.swift */; };
 		03FE78192113C61800776EED /* RedditAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE78182113C61800776EED /* RedditAPI.swift */; };
 		03FE781B2113CAB900776EED /* RedditPost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03FE781A2113CAB900776EED /* RedditPost.swift */; };
@@ -49,13 +49,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		03B091CF2116836D00F07463 /* RedditAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditAPITests.swift; sourceTree = "<group>"; };
 		03FE77E22113C18900776EED /* ThriveChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThriveChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03FE77E52113C18900776EED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		03FE77EC2113C18B00776EED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		03FE77EF2113C18B00776EED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		03FE77F12113C18B00776EED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03FE77F62113C18B00776EED /* ThriveChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThriveChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		03FE77FA2113C18B00776EED /* ThriveChallengeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThriveChallengeTests.swift; sourceTree = "<group>"; };
 		03FE77FC2113C18B00776EED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		03FE78012113C18B00776EED /* ThriveChallengeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThriveChallengeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		03FE78052113C18B00776EED /* ThriveChallengeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThriveChallengeUITests.swift; sourceTree = "<group>"; };
@@ -152,7 +152,7 @@
 		03FE77F92113C18B00776EED /* ThriveChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
-				03FE77FA2113C18B00776EED /* ThriveChallengeTests.swift */,
+				03B091CF2116836D00F07463 /* RedditAPITests.swift */,
 				03FE77FC2113C18B00776EED /* Info.plist */,
 			);
 			path = ThriveChallengeTests;
@@ -570,7 +570,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03FE77FB2113C18B00776EED /* ThriveChallengeTests.swift in Sources */,
+				03B091D02116836D00F07463 /* RedditAPITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,7 +731,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2YGDKQVDC6;
 				INFOPLIST_FILE = ThriveChallenge/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = GHB.ThriveChallenge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -747,7 +750,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2YGDKQVDC6;
 				INFOPLIST_FILE = ThriveChallenge/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = GHB.ThriveChallenge;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -764,7 +770,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2YGDKQVDC6;
 				INFOPLIST_FILE = ThriveChallengeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = GHB.ThriveChallengeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -782,7 +792,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2YGDKQVDC6;
 				INFOPLIST_FILE = ThriveChallengeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = GHB.ThriveChallengeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -799,7 +813,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2YGDKQVDC6;
 				INFOPLIST_FILE = ThriveChallengeUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = GHB.ThriveChallengeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -816,7 +834,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2YGDKQVDC6;
 				INFOPLIST_FILE = ThriveChallengeUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = GHB.ThriveChallengeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

@@ -33,7 +33,7 @@ class CommentViewController: UIViewController {
     let redditAPI = RedditAPI()
     
     /// The number of comments we'll grab per API fetch
-    let commentBatchSize: Int = 20
+    let commentBatchSize: Int = 15
         
     /// The progress indicator we'll use when first loading posts
     var progressHUD: MBProgressHUD?
@@ -128,22 +128,50 @@ private extension CommentViewController {
             switch result {
                 
             case .success(let newComments):
+                // TODO: Manually sorting comments for now.  Reddit API does not document how to sort.
+                let unsortedComments = newComments as! Array<PostComment>
+                let sortedComments = unsortedComments.sorted(by: { $0.postDateTimestamp > $1.postDateTimestamp })
+                
                 // Add the new comments to the comments array
-                self.comments.append(contentsOf: newComments as! Array<PostComment>)
+                self.add(newComments: sortedComments)
                 
             case .error(let code, let friendlyMessage, let cause):
                 // Save a reference to this error message in case we need to show to the user
                 print("Error [\(code)]: \(friendlyMessage) - Cause: \(cause)")
                 self.error = friendlyMessage
+                self.tableView.reloadData()
             }
             
             // Notify that we're done loading
             self.isLoading = false
             
             // Reload the table view so any new results are shown
-            self.tableView.reloadData()
             self.hideCommentActivityIndicator()
         })
+    }
+    
+    func add(newComments: Array<PostComment>)
+    {
+        if (comments.count == 0) {
+            comments.append(contentsOf: newComments)
+            self.tableView.reloadData()
+            return
+        }
+        
+        // We add the comments to the comments array and then insert a table row for each new item
+        // Adding individual rows, as opposed to reloading the entire table view, makes
+        // for a better user experience (keeps the users scroll position)
+        var indexPaths = [IndexPath]()
+        
+        for comment in newComments {
+            comments.append(comment)
+            if let row = comments.index(of: comment) {
+                let indexPath = IndexPath(row: row, section: 0)
+                indexPaths.append(indexPath)
+            }
+        }
+        
+        tableView.insertRows(at: indexPaths, with: UITableViewRowAnimation.fade)
     }
 }
 
@@ -211,33 +239,14 @@ extension CommentViewController: UITableViewDataSource {
         cell.authorLabel.text = comment.author
         cell.dateLabel.text = comment.postDate().asRelativeDateString()
         cell.commentLabel.text = comment.body
-        
-        /*
-        // A title is required for all posts
-        cell.titleLabel.text = post.title
-        
-        // An author is not required, show as unkonwn if we don't have one
-        let author = post.author ?? "Unkown"
-        cell.authorLabel.text = "Posted by: \(author)"
-        
-        // Cell the thumbnail image (asyncronously)
-        let aspectRation = post.expectedThumbnailAspectRatio()
-        let placeholder = post.thumbnailPlaceholderImage()
-        
-        //post.thumbnailUrl = "https://i.redditmedia.com/OYz8bp8XFJyD--trIfvxTnWxGQIgQpAhGoOoq38DrrI.jpg?s=57f3aa21ccc6a0c073681595b3e10d30"
-        //https://i.redditmedia.com/OYz8bp8XFJyD--trIfvxTnWxGQIgQpAhGoOoq38DrrI.jpg?s=57f3aa21ccc6a0c073681595b3e10d30
-        post.printData()
-        //print("[Cell]: Thumbnail URL: \(String(describing: post.thumbnailUrl))")
-        
-        cell.setThumbnailWith(urlString: post.thumbnailUrl, withExpectedAspectRatio: aspectRation, inTableViewOfWidth: UIScreen.main.bounds.width, placeholder: placeholder)
-        */
-        
+
         return cell
     }
     
     func loadingCellFor(tableView: UITableView, atIndexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: loadingCellReuseIdentifier, for: atIndexPath) as! LoadingCell
+        cell.set(height: 50)
         cell.activityIndicator.startAnimating()
         return cell
     }
@@ -251,22 +260,20 @@ extension CommentViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    
-    // TODO: THE FACT THAT WILL DISPLAY CELL IS BEING CALLED SO OFTEN IS MESSING THINGS UP,
-    // NEED TO FIGURE OUT A SMOOTHER WAY TO HANDLE
-    // THE FINAL CELL IS CALLED 3 OR 4 TIMES IN A ROW
-    /*
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        // Once we get towards the bottom, we'll start loading more posts
-        let lastIndex = tableView.numberOfRows(inSection: 0) - 1
-        //let indexToStartLoadAt = tableView.numberOfRows(inSection: 0) - beginLoadingNextBatchWithPostsRemaining
-        if ( indexPath.row == lastIndex && currentCollectionTypeIsLoading() == false) {
-            //print("Load next page of data...")
-            //let after = lastLoadedPostNameInCurrentCollectionType()
-            //loadPosts(after: after)
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
+    {
+        // Once we get to the bottom, we'll start loading more posts
+        if ( indexPath.row == comments.count && !isLoading && hasNextPage()) {
+            self.loadNextPageOfComments()
         }
-    }*/
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // In order to give a better experience when paginating, we want the bottom of the
+        // table view to NOT bounce.  But, we do want the top of the table view to bouce
+        // (we need this in order to use refresh control)
+        tableView.bounces = scrollView.contentOffset.y < 100
+    }
 }
 
 // MARK: - Empty Data Set Source

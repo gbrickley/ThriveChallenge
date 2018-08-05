@@ -49,6 +49,8 @@ class PostComment: NSObject, JSONObjectInitializable {
         case score = "score"
         case replies = "reply_comment_ids"
         case postDateTimestamp = "created_utc"
+        //case postDateTimestamp = "created"
+        
     }
     
     required init(object: JSONObject<PropertyKey>) throws {

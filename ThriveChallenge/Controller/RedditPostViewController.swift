@@ -121,54 +121,14 @@ class RedditPostViewController: UIViewController {
     
     func presentCommentsFor(post: RedditPost)
     {
-        print("Present commments for post: \(post)")
         let commentView = CommentViewController(withPost: post)
         self.navigationController?.pushViewController(commentView, animated: true)
     }
     
     @objc func handleRefresh(_ refreshControl: UIRefreshControl)
     {
-        print("User did request to refresh!")
         loadPosts(after: nil)
     }
-
-    /*
-    func runTest()
-    {
-        let redditAPI = RedditAPI()
-        
-        redditAPI.commentsForPostWithId(postId: "945geo", after: "t1_e3igs29", limit: 10, completion: { result in
-            
-            switch result {
-            case .success(let comments):
-                print("Retrieved comments: \(comments)");
-                for comments in comments as! Array<PostComment> {
-                    print("[\(comments.name)] \(comments.body)")
-                    //comments.printData()
-                }
-                
-            case .error(let code, let friendlyMessage, let cause):
-                print("Error [\(code)]: \(friendlyMessage) - Cause: \(cause)")
-            }
-        })
-
-        
-        redditAPI.postsFor(collectionType: .hot, after: "t3_945n28", limit: 3, completion: { result in
-
-            switch result {
-            case .success(let posts):
-                // handle successful data response here
-                print("Retrieved posts: \(posts)");
-                
-                for post in posts as! Array<RedditPost> {
-                    post.printData()
-                }
-                
-            case .error(let code, let friendlyMessage, let cause):
-                print("Error [\(code)]: \(friendlyMessage) - Cause: \(cause)")
-            }
-        })
-    }*/
 }
 
 // MARK: - View Setup
@@ -266,22 +226,43 @@ private extension RedditPostViewController {
             
             switch result {
                 
-            case .success(let newPosts):
+            case .success(let posts):
                 
                 // If we're loading posts after a specific post, append them to the array
                 // If we don't have an `after` value, then replace the entire array with a new array
-                if (after == nil) {
-                    loadedPosts.insert(contentsOf: newPosts as! Array<RedditPost>, at: 0)
+                let newPosts = posts as! Array<RedditPost>
+
+                if (after == nil || loadedPosts.count == 0) {
+                    
+                    loadedPosts.insert(contentsOf: newPosts, at: 0)
+                    self.posts[postIndex][RedditPostViewController.postsKey] = loadedPosts
+                    self.tableView.reloadData()
+                    
                 } else {
-                    loadedPosts = newPosts as! Array<RedditPost>
+                    // We add the posts to the posts array and then insert a table row for each new item
+                    // Adding individual rows, as opposed to reloading the entire table view, makes
+                    // for a better user experience (keeps the users scroll position)
+                    var indexPaths = [IndexPath]()
+                    
+                    for post in newPosts {
+                        loadedPosts.append(post)
+                        if let row = loadedPosts.index(of: post) {
+                            let indexPath = IndexPath(row: row, section: 0)
+                            indexPaths.append(indexPath)
+                        }
+                    }
+                    
+                    self.posts[postIndex][RedditPostViewController.postsKey] = loadedPosts
+                    if (self.currentViewingIndex == postIndex) {
+                        self.tableView.insertRows(at: indexPaths, with: UITableViewRowAnimation.fade)
+                    }
                 }
-                
-                self.posts[postIndex][RedditPostViewController.postsKey] = loadedPosts
-                
+
             case .error(let code, let friendlyMessage, let cause):
                 // Save a reference to this error message in case we need to show to the user
                 print("Error [\(code)]: \(friendlyMessage) - Cause: \(cause)")
                 self.setError(message: friendlyMessage, for: collectionType)
+                self.tableView.reloadData()
             }
             
             // Notify that we're done loading
@@ -291,7 +272,6 @@ private extension RedditPostViewController {
             self.refreshControl.endRefreshing()
             
             // Reload the table view so any new results are shown
-            self.tableView.reloadData()
             self.hidePostActivityIndicator()
         })
     }
@@ -308,6 +288,7 @@ private extension RedditPostViewController {
         currentViewingIndex = segmentedControl.selectedSegmentIndex
         loadPostsTable(animated: true)
     }
+    
     
     // MARK: Current Collection Helpers
     
@@ -359,6 +340,21 @@ private extension RedditPostViewController {
         }
     }
     
+    
+    // MARK: Posts by Collection Type
+    
+    func postsFor(collectionType: RedditCollectionType) -> Array<RedditPost>
+    {
+        if let index = indexFor(collectionType: collectionType) {
+            return posts[index][RedditPostViewController.postsKey] as! Array<RedditPost>
+        } else {
+            return []
+        }
+    }
+    
+    
+    // MARK: Indexes
+    
     func indexFor(collectionType: RedditCollectionType) -> Int?
     {
         for (index, object) in posts.enumerated() {
@@ -373,11 +369,12 @@ private extension RedditPostViewController {
     
     // MARK: Has Next Page
     
-    func hasNextPage() -> Bool
+    func currentCollectionTypeHasNextPage() -> Bool
     {
         // TODO: Making a best guess here now, this would typically be grabbed from the API
         return postsForCurrentCollectionType().count >= postBatchSize
     }
+    
     
     // MARK: Activity Indicator
     
@@ -390,7 +387,6 @@ private extension RedditPostViewController {
     
     func hidePostActivityIndicator()
     {
-        print("Hide progress HUD")
         tableView.isHidden = false
         progressHUD?.hide(animated: true)
     }
@@ -403,7 +399,7 @@ extension RedditPostViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         let posts = postsForCurrentCollectionType()
-        if (hasNextPage()) {
+        if ( currentCollectionTypeHasNextPage() ) {
             return posts.count + 1 // Add in an extra cell for the 'loading' cell
         } else {
             return posts.count
@@ -429,14 +425,9 @@ extension RedditPostViewController: UITableViewDataSource {
         let author = post.author ?? "Unkown"
         cell.authorLabel.text = "Posted by: \(author)"
         
-        // Cell the thumbnail image (asyncronously)
+        // Set the thumbnail image (asyncronously)
         let aspectRation = post.expectedThumbnailAspectRatio()
         let placeholder = post.thumbnailPlaceholderImage()
-        
-        //post.thumbnailUrl = "https://i.redditmedia.com/OYz8bp8XFJyD--trIfvxTnWxGQIgQpAhGoOoq38DrrI.jpg?s=57f3aa21ccc6a0c073681595b3e10d30"
-        //https://i.redditmedia.com/OYz8bp8XFJyD--trIfvxTnWxGQIgQpAhGoOoq38DrrI.jpg?s=57f3aa21ccc6a0c073681595b3e10d30
-        post.printData()
-        //print("[Cell]: Thumbnail URL: \(String(describing: post.thumbnailUrl))")
         
         cell.setThumbnailWith(urlString: post.thumbnailUrl, withExpectedAspectRatio: aspectRation, inTableViewOfWidth: UIScreen.main.bounds.width, placeholder: placeholder)
         
@@ -446,6 +437,7 @@ extension RedditPostViewController: UITableViewDataSource {
     func loadingCellFor(tableView: UITableView, atIndexPath: IndexPath) -> UITableViewCell
     {
         let cell = tableView.dequeueReusableCell(withIdentifier: loadingCellReuseIdentifier, for: atIndexPath) as! LoadingCell
+        cell.set(height: 150)
         cell.activityIndicator.startAnimating()
         return cell
     }
@@ -462,35 +454,25 @@ extension RedditPostViewController: UITableViewDelegate {
         self.presentCommentsFor(post: post)
     }
     
-    
-    // TODO: THE FACT THAT WILL DISPLAY CELL IS BEING CALLED SO OFTEN IS MESSING THINGS UP,
-    // NEED TO FIGURE OUT A SMOOTHER WAY TO HANDLE
-    // THE FINAL CELL IS CALLED 3 OR 4 TIMES IN A ROW
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        // Once we get towards the bottom, we'll start loading more posts
-        let lastIndex = tableView.numberOfRows(inSection: 0) - 1
-        //let indexToStartLoadAt = tableView.numberOfRows(inSection: 0) - beginLoadingNextBatchWithPostsRemaining
-        if ( indexPath.row == lastIndex && currentCollectionTypeIsLoading() == false) {
-            //print("Load next page of data...")
-            //let after = lastLoadedPostNameInCurrentCollectionType()
-            //loadPosts(after: after)
-        }
-    }
-    
-    //let threshold = 100.0 // threshold from bottom of tableView
-    /*
-    func scrollViewDidScroll(_ scrollView: UIScrollView)
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath)
     {
-        let contentOffset = scrollView.contentOffset.y
-        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
+        // Once we get to the bottom, we'll start loading more posts
+        let posts = postsForCurrentCollectionType()
+        let isLoading = currentCollectionTypeIsLoading()
+        let hasNextPage = currentCollectionTypeHasNextPage()
         
-        if !currentCollectionTypeIsLoading() && (maximumOffset - contentOffset <= 100) {
-            print("Load next page of data...")
+        if ( indexPath.row == posts.count && !isLoading && hasNextPage) {
             let after = lastLoadedPostNameInCurrentCollectionType()
             loadPosts(after: after)
         }
-    }*/
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        // In order to give a better experience when paginating, we want the bottom of the
+        // table view to NOT bounce.  But, we do want the top of the table view to bouce
+        // (we need this in order to use refresh control)
+        tableView.bounces = scrollView.contentOffset.y < 100
+    }
 }
 
 // MARK: - Empty Data Set Source

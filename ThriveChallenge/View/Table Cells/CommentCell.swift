@@ -40,7 +40,7 @@ class CommentCell: UITableViewCell {
     
     let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 13)
         label.numberOfLines = 1
         label.textAlignment = NSTextAlignment.right
         label.textColor = UIColor.black

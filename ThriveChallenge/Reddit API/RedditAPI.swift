@@ -38,7 +38,7 @@ class RedditAPI: NSObject {
     typealias redditCompletionBlock = (Result<Any>) -> Void
     
     /**
-     Retreieves redit posts.
+     Retreieves redit posts, ordered by post date with the most recent first.
      
      - Parameter collectionType: @see RedditCollectionType enum for possible values.
      - Parameter after: String: Optionally pass the name of a post to fetch results after.
@@ -59,8 +59,8 @@ class RedditAPI: NSObject {
             params["after"] = after
         }
         
-        print("[Reddit API]: Request URL: \(url)")
-        print("[Reddit API]: Params: \(params)")
+        //print("[Reddit API]: Request URL: \(url)")
+        //print("[Reddit API]: Params: \(params)")
         
         Alamofire.request(url, parameters: params).validate().responseJSON { response in
             
@@ -72,7 +72,7 @@ class RedditAPI: NSObject {
             
             case .success(let data):
                 let json = JSON(data)
-                print(json)
+                //print(json)
                 guard let postsAsJSON = json["data"]["children"].array else {
                     let descrip = "Could not retrieve Reddit data."
                     let cause = "Malformed JSON data returned"
@@ -99,7 +99,7 @@ class RedditAPI: NSObject {
     }
     
     /**
-     Retreieves comments for a post.
+     Retreieves comments for a post, ordered by post date with the most recent first.
      
      - Parameter postId: The id of the post to retrieve comments for.
      - Parameter after: Optionally pass the name of a comment to fetch results after.
@@ -120,6 +120,9 @@ class RedditAPI: NSObject {
             params["after"] = after
         }
         
+        print("[Comment Request]: Request URL: \(url)")
+        print("[Comment Request]: Params: \(params)")
+        
         Alamofire.request(url, parameters: params).validate().responseJSON { response in
             
             switch response.result {
@@ -130,7 +133,6 @@ class RedditAPI: NSObject {
                 
             case .success(let data):
                 let json = JSON(data)
-                print(json)
                 
                 guard let commentsAsJSON = json[1]["data"]["children"].array else {
                     let descrip = "Could not retrieve Reddit data."

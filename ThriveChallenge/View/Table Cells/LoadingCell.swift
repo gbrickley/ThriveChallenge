@@ -9,7 +9,11 @@
 import UIKit
 
 class LoadingCell: UITableViewCell {
-
+    
+    var height: CGFloat = 40
+    var topPaddingConstraint : NSLayoutConstraint?
+    var bottomPaddingConstraint : NSLayoutConstraint?
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.initialViewSetup()
@@ -43,10 +47,30 @@ class LoadingCell: UITableViewCell {
     
     func updateActivityIndicatorConstraints()
     {
-        let verticalPadding: CGFloat = 40
         activityIndicator.centerXAnchor.constraint(equalTo: self.contentView.centerXAnchor).isActive = true
-        activityIndicator.topAnchor.constraint(equalTo:self.contentView.topAnchor, constant:verticalPadding).isActive = true
-        activityIndicator.bottomAnchor.constraint(equalTo:self.contentView.bottomAnchor, constant:-verticalPadding).isActive = true
+        set(height: self.height)
+    }
+    
+    func set(height: CGFloat)
+    {
+        self.height = height
+        let indHeight = activityIndicator.bounds.size.height
+        let verticalPadding = (height - indHeight) / 2
+        
+        if (topPaddingConstraint != nil) {
+            topPaddingConstraint?.constant = verticalPadding
+        } else {
+            topPaddingConstraint = activityIndicator.topAnchor.constraint(equalTo:self.contentView.topAnchor, constant:verticalPadding)
+        }
+        
+        if (bottomPaddingConstraint != nil) {
+            bottomPaddingConstraint?.constant = -verticalPadding
+        } else {
+            bottomPaddingConstraint = activityIndicator.bottomAnchor.constraint(equalTo:self.contentView.bottomAnchor, constant:-verticalPadding)
+        }
+        
+        topPaddingConstraint?.isActive = true
+        bottomPaddingConstraint?.isActive = true
     }
 
     override func awakeFromNib() {

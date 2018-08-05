@@ -10,7 +10,7 @@ import UIKit
 
 class CommentCell: UITableViewCell {
     
-    let horizontalPadding: CGFloat = 10
+    let horizontalPadding: CGFloat = 15
     let verticalPadding: CGFloat = 10
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

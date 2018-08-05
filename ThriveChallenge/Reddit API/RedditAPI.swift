@@ -58,10 +58,7 @@ class RedditAPI: NSObject {
         if let after = afterPostName {
             params["after"] = after
         }
-        
-        //print("[Reddit API]: Request URL: \(url)")
-        //print("[Reddit API]: Params: \(params)")
-        
+
         Alamofire.request(url, parameters: params).validate().responseJSON { response in
             
             switch response.result {
@@ -72,7 +69,6 @@ class RedditAPI: NSObject {
             
             case .success(let data):
                 let json = JSON(data)
-                //print(json)
                 guard let postsAsJSON = json["data"]["children"].array else {
                     let descrip = "Could not retrieve Reddit data."
                     let cause = "Malformed JSON data returned"
@@ -119,10 +115,7 @@ class RedditAPI: NSObject {
         if let after = afterCommentName {
             params["after"] = after
         }
-        
-        print("[Comment Request]: Request URL: \(url)")
-        print("[Comment Request]: Params: \(params)")
-        
+
         Alamofire.request(url, parameters: params).validate().responseJSON { response in
             
             switch response.result {
@@ -133,7 +126,6 @@ class RedditAPI: NSObject {
                 
             case .success(let data):
                 let json = JSON(data)
-                
                 guard let commentsAsJSON = json[1]["data"]["children"].array else {
                     let descrip = "Could not retrieve Reddit data."
                     let cause = "Malformed JSON data returned"

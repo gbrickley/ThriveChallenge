@@ -272,7 +272,11 @@ extension CommentViewController: UITableViewDelegate {
         // In order to give a better experience when paginating, we want the bottom of the
         // table view to NOT bounce.  But, we do want the top of the table view to bouce
         // (we need this in order to use refresh control)
-        tableView.bounces = scrollView.contentOffset.y < 100
+        if (scrollView.contentOffset.y > 100 && hasNextPage()) {
+            tableView.bounces = false
+        } else {
+            tableView.bounces = true
+        }
     }
 }
 
@@ -328,12 +332,21 @@ extension CommentViewController: EmptyDataSetSource {
         let image = UIImage.init(named: "empty-set-btn-bg")
         return image?.resizableImage(withCapInsets: capInsets, resizingMode: .stretch).withAlignmentRectInsets(rectInsets)
     }
+    
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage?
+    {
+        if error == nil {
+            return UIImage(named: "comment-empty-set")
+        } else {
+            return nil
+        }
+    }
 }
 
 // MARK: - Empty Data Set Delegate
 extension CommentViewController: EmptyDataSetDelegate {
     
     func emptyDataSet(_ scrollView: UIScrollView, didTapButton button: UIButton) {
-        //loadComments(after: nil)
+        loadNextPageOfComments()
     }
 }

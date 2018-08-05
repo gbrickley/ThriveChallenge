@@ -19,7 +19,8 @@ class PostComment: NSObject, JSONObjectInitializable {
     var replies: [String]? = []
     var postDateTimestamp: Int
     
-    func numberOfReplies() -> Int {
+    public func numberOfReplies() -> Int
+    {
         if let replies = replies {
             return replies.count
         } else {
@@ -27,20 +28,14 @@ class PostComment: NSObject, JSONObjectInitializable {
         }
     }
     
-    func postDate() -> Date {
+    public func postDate() -> Date
+    {
         return Date.init(timeIntervalSince1970: TimeInterval(postDateTimestamp))
     }
     
-    func printData() {
-        print("Id: \(String(describing: uid))")
-        print("Name: \(String(describing: name))")
-        print("Body: \(String(describing: body))")
-        print("Author: \(String(describing: author))")
-        print("Score: \(String(describing: score))")
-        print("Reply Comment Ids: \(String(describing: replies))")
-        print("Post Date: \(postDate())")
-    }
     
+    // MARK: - Internal Setup
+        
     enum PropertyKey: String {
         case uid = "id"
         case name = "name"
@@ -49,8 +44,6 @@ class PostComment: NSObject, JSONObjectInitializable {
         case score = "score"
         case replies = "reply_comment_ids"
         case postDateTimestamp = "created_utc"
-        //case postDateTimestamp = "created"
-        
     }
     
     required init(object: JSONObject<PropertyKey>) throws {

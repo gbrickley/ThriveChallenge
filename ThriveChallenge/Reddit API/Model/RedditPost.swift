@@ -33,6 +33,9 @@ class RedditPost: NSObject, JSONObjectInitializable {
         return UIImage.init(named: "thumbnail-placeholder")!
     }
     
+    
+    // MARK: - Internal Setup
+    
     enum PropertyKey: String {
         case uid = "id"
         case name = "name"
@@ -53,16 +56,4 @@ class RedditPost: NSObject, JSONObjectInitializable {
         thumbnailWidth = try object.value(for: .thumbnail, .thumbnailWidth)
         thumbnailHeight = try object.value(for: .thumbnail, .thumbnailHeight)
     }
-
-    func printData() {
-        print("Id: \(String(describing: uid))")
-        print("Name: \(String(describing: name))")
-        print("Author: \(String(describing: author))")
-        print("Title: \(String(describing: title))")
-        print("Thumbnail Url: \(String(describing: thumbnailUrl))")
-        print("Thumbnail Width: \(String(describing: thumbnailWidth))")
-        print("Thumbnail Height: \(String(describing: thumbnailHeight))")
-        print("Aspect Ratio: \(self.expectedThumbnailAspectRatio())")
-    }
-
 }

@@ -14,11 +14,7 @@ extension URL {
     /// Whether or not the file type of the url is gif
     func isGif() -> Bool
     {
-        print("[ZZZ]: Checking if gif: \(self)")
         let fileExtension = self.pathExtension.lowercased()
-        print("[ZZZ]: Extension: \(fileExtension)")
-        let result = fileExtension == "gif"
-        print("[ZZZ]: Result: \(result)")
-        return result
+        return fileExtension == "gif"
     }
 }

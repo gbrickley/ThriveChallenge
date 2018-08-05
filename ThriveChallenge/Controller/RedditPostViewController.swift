@@ -471,7 +471,11 @@ extension RedditPostViewController: UITableViewDelegate {
         // In order to give a better experience when paginating, we want the bottom of the
         // table view to NOT bounce.  But, we do want the top of the table view to bouce
         // (we need this in order to use refresh control)
-        tableView.bounces = scrollView.contentOffset.y < 100
+        if (scrollView.contentOffset.y > 100 && currentCollectionTypeHasNextPage()) {
+            tableView.bounces = false
+        } else {
+            tableView.bounces = true
+        }
     }
 }
 

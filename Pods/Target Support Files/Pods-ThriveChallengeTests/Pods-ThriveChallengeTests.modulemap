@@ -1,0 +1,6 @@
+framework module Pods_ThriveChallengeTests {
+  umbrella header "Pods-ThriveChallengeTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
